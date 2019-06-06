@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="PHP Course" default="build" basedir=".">
+
+    <target name="build" depends="vars, configs, composer"/>
+
+    <!-- ============================================  -->
+    <!-- Target: vars                                  -->
+    <!-- ============================================  -->
+    <target name="vars">
+
+        <resolvepath propertyName="project.dir" file="${project.basedir}" />
+        <echo msg="Project source dir is: ${project.dir}" />
+
+        <php returnProperty="build.time" function="date">
+            <param value="Y-m-d-H-i-s" />
+        </php>
+
+        <resolvepath propertyName="home.dir" file="/app" />
+
+        <property name="build.domain" value="localhost:8000" />
+        <echo msg="Project public domain is: ${build.domain}" />
+
+        <resolvepath propertyName="current.dir" file="${project.basedir}" />
+        <echo msg="Current build dir is: ${current.dir}" />
+
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: configs                               -->
+    <!-- ============================================  -->
+    <target name="configs">
+        <echo msg="Сonfigs create:" />
+        <copy todir="${current.dir}" overwrite="true" haltonerror="true">
+            <fileset dir="${current.dir}/build/dev/config">
+                <include name="**" />
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: composer                              -->
+    <!-- ============================================  -->
+    <target name="composer">
+        <echo msg="Composer dependencies install:" />
+        <exec command="composer install" dir="${current.dir}" passthru="true" checkreturn="true" />
+    </target>
+</project>
