@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="PHP Course" default="build" basedir=".">
+<project name="PHP Course" default="build" basedir="../dev">
 
     <target name="build" depends="vars, configs, composer"/>
 
@@ -31,7 +31,7 @@
     <!-- ============================================  -->
     <target name="configs">
         <echo msg="Сonfigs create:" />
-        <copy todir="${current.dir}" overwrite="true" haltonerror="true">
+        <copy todir="build.xml" overwrite="true" haltonerror="true">
             <fileset dir="${current.dir}/build/dev/config">
                 <include name="**" />
             </fileset>
@@ -43,6 +43,6 @@
     <!-- ============================================  -->
     <target name="composer">
         <echo msg="Composer dependencies install:" />
-        <exec command="composer install" dir="${current.dir}" passthru="true" checkreturn="true" />
+        <exec command="composer install" dir="build.xml" passthru="true" checkreturn="true" />
     </target>
 </project>
