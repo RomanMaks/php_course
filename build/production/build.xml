@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="PHP Course" default="build" basedir="../dev">
+<project name="PHP Course" default="build" basedir=".">
 
     <target name="build" depends="vars, configs, composer"/>
 
@@ -16,13 +16,8 @@
             <param value="Y-m-d-H-i-s" />
         </php>
 
-        <resolvepath propertyName="home.dir" file="/app" />
-
-        <property name="build.domain" value="localhost:8000" />
-        <echo msg="Project public domain is: ${build.domain}" />
-
-        <resolvepath propertyName="current.dir" file="${project.basedir}" />
-        <echo msg="Current build dir is: ${current.dir}" />
+        <property name="domain" value="localhost:8000" />
+        <echo msg="Project public domain is: ${domain}" />
 
     </target>
 
@@ -31,8 +26,8 @@
     <!-- ============================================  -->
     <target name="configs">
         <echo msg="Сonfigs create:" />
-        <copy todir="build.xml" overwrite="true" haltonerror="true">
-            <fileset dir="${current.dir}/build/dev/config">
+        <copy todir="${project.dir}" overwrite="true" haltonerror="true">
+            <fileset dir="${project.dir}/build/production/config">
                 <include name="**" />
             </fileset>
         </copy>
@@ -43,6 +38,6 @@
     <!-- ============================================  -->
     <target name="composer">
         <echo msg="Composer dependencies install:" />
-        <exec command="composer install" dir="build.xml" passthru="true" checkreturn="true" />
+        <exec command="composer install" dir="${project.dir}" passthru="true" checkreturn="true" />
     </target>
 </project>
