@@ -2,7 +2,7 @@
 
 <project name="PHP Course" default="build" basedir=".">
 
-    <target name="build" depends="vars, configs, composer"/>
+    <target name="build" depends="vars, copy, configs, composer, switch"/>
 
     <!-- ============================================  -->
     <!-- Target: vars                                  -->
@@ -12,12 +12,35 @@
         <resolvepath propertyName="project.dir" file="${project.basedir}" />
         <echo msg="Project source dir is: ${project.dir}" />
 
+        <resolvepath propertyName="home.dir" file="${project.dir}/.." />
+        <echo msg="Home dir is: ${home.dir}" />
+
         <php returnProperty="build.time" function="date">
             <param value="Y-m-d-H-i-s" />
         </php>
 
         <property name="domain" value="localhost:8000" />
         <echo msg="Project public domain is: ${domain}" />
+
+        <resolvepath propertyName="current.dir" file="${home.dir}/${build.time}" />
+        <echo msg="Current build dir is: ${current.dir}" />
+
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: copy                                  -->
+    <!-- ============================================  -->
+    <target name="copy">
+
+        <mkdir dir="${current.dir}" />
+        <echo msg="Current dir ${current.dir} is made" />
+
+        <copy todir="${current.dir}">
+            <fileset dir="${project.dir}" defaultexcludes="true">
+                <include name="**" />
+                <exclude name="vendor/**"/>
+            </fileset>
+        </copy>
 
     </target>
 
@@ -26,8 +49,8 @@
     <!-- ============================================  -->
     <target name="configs">
         <echo msg="Сonfigs create:" />
-        <copy todir="${project.dir}" overwrite="true" haltonerror="true">
-            <fileset dir="${project.dir}/build/production/config">
+        <copy todir="${current.dir}" overwrite="true" haltonerror="true">
+            <fileset dir="${current.dir}/build/production/config">
                 <include name="**" />
             </fileset>
         </copy>
@@ -38,6 +61,13 @@
     <!-- ============================================  -->
     <target name="composer">
         <echo msg="Composer dependencies install:" />
-        <exec command="composer install" dir="${project.dir}" passthru="true" checkreturn="true" />
+        <exec command="composer install" dir="${current.dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: switch                                -->
+    <!-- ============================================  -->
+    <target name="switch">
+        <symlink target="${current.dir}" link="${home.dir}/current" overwrite="true" />
     </target>
 </project>
