@@ -29,9 +29,15 @@ final class Version20190612150001 extends AbstractMigration
         $this->addSql('
 CREATE TABLE "user" (
   id INT NOT NULL,
-  name VARCHAR(100) NOT NULL,
+  password TEXT,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR (100) NOT NULL,
+  middle_name VARCHAR (100),
   phone VARCHAR(11) NOT NULL,
   email VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP NOT NULL current_timestamp(),
+  updated_at TIMESTAMP,
+  deleted_at TIMESTAMP,
   PRIMARY KEY(id)
   )
         ');

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="PHP Course" default="build" basedir=".">
+
+    <target name="build" depends="vars, configs, composer"/>
+
+    <!-- ============================================  -->
+    <!-- Target: vars                                  -->
+    <!-- ============================================  -->
+    <target name="vars">
+
+        <resolvepath propertyName="project.dir" file="${project.basedir}" />
+        <echo msg="Project source dir is: ${project.dir}" />
+
+        <resolvepath propertyName="home.dir" file="${project.dir}/.." />
+        <echo msg="Home dir is: ${home.dir}" />
+
+        <php returnProperty="build.time" function="date">
+            <param value="Y-m-d-H-i-s" />
+        </php>
+
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: configs                               -->
+    <!-- ============================================  -->
+    <target name="configs">
+        <echo msg="Сonfigs create:" />
+        <copy todir="${project.dir}" overwrite="true" haltonerror="true">
+            <fileset dir="${project.dir}/build/production/config">
+                <include name="**" />
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: composer                              -->
+    <!-- ============================================  -->
+    <target name="composer">
+        <echo msg="Composer dependencies install:" />
+        <exec command="composer install" dir="${project.dir}" passthru="true" checkreturn="true" />
+    </target>
+
+</project>

@@ -17,9 +17,24 @@ class User
     private $id;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
+    /**
      * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $middleName;
 
     /**
      * @ORM\Column(type="string", length=11)
@@ -31,19 +46,70 @@ class User
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getPassword(): ?string
     {
-        return $this->name;
+        return $this->password;
     }
 
-    public function setName(string $name): self
+    public function setPassword(string $password): self
     {
-        $this->name = $name;
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getMiddleName(): ?string
+    {
+        return $this->middleName;
+    }
+
+    public function setMiddleName(string $middleName): self
+    {
+        $this->middleName = $middleName;
 
         return $this;
     }
@@ -68,6 +134,42 @@ class User
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(string $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(string $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?string
+    {
+        return $this->updatedAt;
+    }
+
+    public function setDeletedAt(string $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
