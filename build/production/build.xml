@@ -2,7 +2,7 @@
 
 <project name="PHP Course" default="build" basedir=".">
 
-    <target name="build" depends="vars, copy, configs, composer, switch"/>
+    <target name="build" depends="vars, copy, configs, composer, switch, migrate"/>
 
     <!-- ============================================  -->
     <!-- Target: vars                                  -->
@@ -69,5 +69,13 @@
     <!-- ============================================  -->
     <target name="switch">
         <symlink target="${current.dir}" link="${home.dir}/current" overwrite="true" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: migrate                               -->
+    <!-- ============================================  -->
+    <target name="migrate">
+        <echo msg="Db migrating:" />
+        <exec command="php bin/console doctrine:migration:migrate" dir="${current.dir}" passthru="true" checkreturn="true" />
     </target>
 </project>

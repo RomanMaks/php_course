@@ -2,7 +2,7 @@
 
 <project name="PHP Course" default="build" basedir=".">
 
-    <target name="build" depends="vars, configs, composer"/>
+    <target name="build" depends="vars, configs, composer, migrate"/>
 
     <!-- ============================================  -->
     <!-- Target: vars                                  -->
@@ -12,13 +12,6 @@
         <resolvepath propertyName="project.dir" file="${project.basedir}" />
         <echo msg="Project source dir is: ${project.dir}" />
 
-        <resolvepath propertyName="home.dir" file="${project.dir}/.." />
-        <echo msg="Home dir is: ${home.dir}" />
-
-        <php returnProperty="build.time" function="date">
-            <param value="Y-m-d-H-i-s" />
-        </php>
-
     </target>
 
     <!-- ============================================  -->
@@ -27,7 +20,7 @@
     <target name="configs">
         <echo msg="Сonfigs create:" />
         <copy todir="${project.dir}" overwrite="true" haltonerror="true">
-            <fileset dir="${project.dir}/build/production/config">
+            <fileset dir="${project.dir}/build/development/config">
                 <include name="**" />
             </fileset>
         </copy>
@@ -39,6 +32,14 @@
     <target name="composer">
         <echo msg="Composer dependencies install:" />
         <exec command="composer install" dir="${project.dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: migrate                               -->
+    <!-- ============================================  -->
+    <target name="migrate">
+        <echo msg="Db migrating:" />
+        <exec command="php bin/console doctrine:migration:migrate" dir="${project.dir}" passthru="true" checkreturn="true" />
     </target>
 
 </project>
