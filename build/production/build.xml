@@ -53,6 +53,12 @@
             <fileset dir="${current.dir}/build/production/config">
                 <include name="**" />
             </fileset>
+            <filterchain>
+                <replacetokens begintoken="{{" endtoken="}}">
+                    <token key="db.username" value="${db.username}" />
+                    <token key="db.password" value="${db.password}" />
+                </replacetokens>
+            </filterchain>
         </copy>
     </target>
 
