@@ -59,6 +59,11 @@ ADD CONSTRAINT fk_users_roles_role_id
 FOREIGN KEY (role_id) 
 REFERENCES roles (id) NOT DEFERRABLE INITIALLY IMMEDIATE'
         );
+
+        $this->addSql('
+INSERT INTO users_roles (user_id, role_id) 
+VALUES (1, 2)'
+        );
     }
 
     public function down(Schema $schema) : void
