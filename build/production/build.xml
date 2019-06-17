@@ -19,7 +19,7 @@
             <param value="Y-m-d-H-i-s" />
         </php>
 
-        <property name="domain" value="localhost:8000" />
+        <property name="domain" value="prod.php.course" />
         <echo msg="Project public domain is: ${domain}" />
 
         <resolvepath propertyName="current.dir" file="${home.dir}/${build.time}" />
@@ -55,6 +55,7 @@
             </fileset>
             <filterchain>
                 <replacetokens begintoken="{{" endtoken="}}">
+                    <token key="domain" value="$domain" />
                     <token key="db.username" value="${db.username}" />
                     <token key="db.password" value="${db.password}" />
                 </replacetokens>
