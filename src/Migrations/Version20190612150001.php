@@ -34,7 +34,7 @@ CREATE TABLE users (
   middle_name VARCHAR (100),
   phone VARCHAR(11) NOT NULL,
   email VARCHAR(100) NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP,
   deleted_at TIMESTAMP
   )
