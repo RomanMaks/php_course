@@ -8,19 +8,24 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RoleRepository")
- * @ORM\Table(name="roles")
+ * @ORM\Table(
+ *     name="roles",
+ *     uniqueConstraints={
+ *         @ORM\UniqueConstraint(name="uniq_roles_codename", columns={"codename"})
+ *     }
+ * )
  */
 class Role
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="bigint")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $codename;
 
@@ -31,6 +36,11 @@ class Role
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="roles")
+     * @ORM\JoinTable(
+     *     name="users_roles",
+     *     joinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     * )
      */
     private $users;
 

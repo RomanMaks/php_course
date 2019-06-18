@@ -28,7 +28,7 @@ final class Version20190612150001 extends AbstractMigration
         $this->addSql('
 CREATE TABLE users (
   id BIGSERIAL PRIMARY KEY NOT NULL,
-  password TEXT,
+  password TEXT NOT NULL,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR (100) NOT NULL,
   middle_name VARCHAR (100),
@@ -43,8 +43,8 @@ CREATE TABLE users (
         $this->addSql('CREATE UNIQUE INDEX uniq_users_phone ON users (phone)');
 
         $this->addSql('
-INSERT INTO users (password, first_name, last_name, middle_name, phone, email) 
-VALUES (\'password\', \'Иванов\', \'Иван\', \'Иванович\', \'79999999999\', \'ivan@mail.ru\')'
+INSERT INTO users (password, first_name, last_name, middle_name, phone, email, created_at) 
+VALUES (\'password\', \'Иванов\', \'Иван\', \'Иванович\', \'79999999999\', \'ivan@mail.ru\', \'2019-06-18 18:00:00\')'
         );
     }
 

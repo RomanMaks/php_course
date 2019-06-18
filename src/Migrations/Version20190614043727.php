@@ -27,7 +27,7 @@ final class Version20190614043727 extends AbstractMigration
 
         $this->addSql('
 CREATE TABLE roles (
-  id BIGSERIAL PRIMARY KEY,
+  id BIGSERIAL PRIMARY KEY NOT NULL,
   codename VARCHAR(255) NOT NULL,
   title VARCHAR(255) NOT NULL
 )'
@@ -44,8 +44,8 @@ CREATE TABLE users_roles (
   PRIMARY KEY(user_id, role_id)
 )'
         );
-        $this->addSql('CREATE INDEX idx_users_roles_user_id ON users_roles (user_id)');
-        $this->addSql('CREATE INDEX idx_users_roles_role_id ON users_roles (role_id)');
+        $this->addSql('CREATE INDEX IDX_51498A8EA76ED395 ON users_roles (user_id)');
+        $this->addSql('CREATE INDEX IDX_51498A8ED60322AC ON users_roles (role_id)');
 
         $this->addSql('
 ALTER TABLE users_roles 
